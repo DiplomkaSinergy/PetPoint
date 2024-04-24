@@ -7,7 +7,6 @@ from aiogram.dispatcher.router import Router
 from aiogram.enums import ParseMode
 from handlers import setup_handlers
 from db.database import create_tables
-# from keyboards.admin import  *
 
 async def main():
     bot = Bot(token=config.BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
