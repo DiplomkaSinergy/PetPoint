@@ -6,5 +6,6 @@ def get_main_menu_keyboard():
         [types.KeyboardButton(text="Посмотреть категории")],
         [types.KeyboardButton(text="Посмотреть товары")],
         [types.KeyboardButton(text="Мои заказы")],
+        [types.KeyboardButton(text="Магазины")],
     ]
     return kb
