@@ -1,5 +1,6 @@
 # database.py
 import aiomysql
+import logging
 from config import MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB, MYSQL_HOST
 
 async def get_connection():
@@ -17,11 +18,28 @@ async def fetch(query, args=None):
 
 async def execute(query, args=None):
     conn = await get_connection()
-    async with conn.cursor() as cur:
-        await cur.execute(query, args)
-        affected_rows = cur.rowcount
-    conn.close()
-    return affected_rows
+    try:
+        async with conn.cursor() as cur:
+            await cur.execute(query, args)
+            affected_rows = cur.rowcount
+            last_id = cur.lastrowid
+            await conn.commit()
+            logging.info(f"Query executed successfully: {query}, Affected Rows: {affected_rows}, Last Insert ID: {last_id}")
+            return last_id
+    except Exception as e:
+        await conn.rollback()  # Ensure rollback on error
+        logging.error(f"Failed to execute query: {query}. Error: {e}")
+        raise e
+    finally:
+        conn.close()
+
+# async def execute(query, args=None):
+#     conn = await get_connection()
+#     async with conn.cursor() as cur:
+#         await cur.execute(query, args)
+#         affected_rows = cur.rowcount
+#     conn.close()
+#     return affected_rows
 
 async def create_tables():
     conn = await get_connection()
@@ -79,3 +97,7 @@ async def create_tables():
         await conn.commit()
     finally:
         conn.close()
+
+# Add logging configuration at the start of your script
+# logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')

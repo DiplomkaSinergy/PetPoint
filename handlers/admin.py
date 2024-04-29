@@ -234,32 +234,32 @@ async def choose_shop_for_deletion(message: types.Message, state: FSMContext):
             await message.answer("Магазин не найден. Пожалуйста, введите корректный ID.")
 
 
-@router.message(lambda message: message.text.lower() == "добавить магазин")
+@router.message(lambda message: message.text is not None and message.text.lower() == "добавить магазин")
 async def handle_add_shop_text(message: types.Message, state: FSMContext):
     await state.update_data(previous_keyboard=message.reply_markup)
     return await cmd_add_shop(message, state)
 
-@router.message(lambda message: message.text.lower() == "удалить магазин")
+@router.message(lambda message: message.text is not None and message.text.lower() == "удалить магазин")
 async def handle_delete_shop_text(message: types.Message, state: FSMContext):
     await state.update_data(previous_keyboard=message.reply_markup)
     return await cmd_delete_shop(message, state)
 
-@router.message(lambda message: message.text.lower() == "добавить категорию")
+@router.message(lambda message: message.text is not None and message.text.lower() == "добавить категорию")
 async def handle_add_category_text(message: types.Message, state: FSMContext):
     await state.update_data(previous_keyboard=message.reply_markup)
     return await cmd_add_category(message, state)
 
-@router.message(lambda message: message.text.lower() == "добавить товар")
+@router.message(lambda message: message.text is not None and message.text.lower() == "добавить товар")
 async def handle_add_product_text(message: types.Message, state: FSMContext):
     await state.update_data(previous_keyboard=message.reply_markup)
     return await cmd_add_product(message, state)
 
-@router.message(lambda message: message.text.lower() == "редактировать товар")
+@router.message(lambda message: message.text is not None and message.text.lower() == "редактировать товар")
 async def handle_edit_product_text(message: types.Message, state: FSMContext):
     await state.update_data(previous_keyboard=message.reply_markup)
     return await start_edit_product(message, state)
 
-@router.message(lambda message: message.text.lower() == "отмена")
+@router.message(lambda message: message.text is not None and message.text.lower() == "отмена")
 async def cancel_action(message: types.Message, state: FSMContext):
     await state.clear()
     previous_keyboard = COMMON_MENU

@@ -22,6 +22,6 @@ async def list_orders(message: types.Message):
     
     await message.answer(reply_text)
 
-@router.message(lambda message: message.text is not None and message.text.lower() == "список заказов")
-async def handle_show_my_orders_text(message: types.Message):
-    return await list_orders(message)
+# @router.message(lambda message: message.text is not None and message.text.lower() == "список заказов")
+# async def handle_show_my_orders_text(message: types.Message):
+#     return await list_orders(message)

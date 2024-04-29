@@ -14,6 +14,6 @@ async def show_shops(message: types.Message):
         reply_text = "Магазины пока отсутствуют."
     await message.answer(reply_text)
 
-@router.message(lambda message: message.text is not None and message.text.lower() == "магазины")
-async def handle_show_shops_text(message: types.Message):
-    return await show_shops(message)
+# @router.message(lambda message: message.text is not None and message.text.lower() == "магазины")
+# async def handle_show_shops_text(message: types.Message):
+#     return await show_shops(message)
