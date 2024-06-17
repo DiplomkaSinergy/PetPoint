@@ -30,6 +30,6 @@ async def view_products(message: types.Message):
             )
         await message.answer("\n".join(products_text))
 
-# @router.message(lambda message: message.text.lower() == "посмотреть товары")
-# async def handle_get_products_text(message: types.Message):
-#     return await view_products(message)
+@router.message(lambda message: message.text.lower() == "посмотреть товары")
+async def handle_get_products_text(message: types.Message):
+    return await view_products(message)

@@ -16,6 +16,6 @@ async def show_categories(message: types.Message):
         reply_text = "Категории пока отсутствуют."
     await message.answer(reply_text)
 
-# @router.message(lambda message: message.text is not None and message.text.lower()  == "посмотреть категории")
-# async def handle_show_category_text(message: types.Message):
-#     return await show_categories(message)
+@router.message(lambda message: message.text is not None and message.text.lower()  == "посмотреть категории")
+async def handle_show_category_text(message: types.Message):
+   return await show_categories(message)
